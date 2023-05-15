@@ -107,5 +107,5 @@ else:
 game_over_image = font.render("Game Over", True, (255, 255, 255))
 # Get the rect of the game over image and set its position at the center of the screen
 game_over_rect = game_over_image.get_rect()
-game_over_rect.center =...
+game_over_rect.center =
 
