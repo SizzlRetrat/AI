@@ -109,3 +109,101 @@ game_over_image = font.render("Game Over", True, (255, 255, 255))
 game_over_rect = game_over_image.get_rect()
 game_over_rect.center =
 
+
+
+
+
+# Import pygame and random modules
+import pygame
+import random
+
+# Initialize pygame
+pygame.init()
+
+# Define some colors
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
+
+# Define some constants
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+PIPE_WIDTH = 80
+PIPE_GAP = 150
+HAMSTER_WIDTH = 50
+HAMSTER_HEIGHT = 50
+GRAVITY = 1
+FLAP_SPEED = -15
+
+# Load the hamster image
+hamster = pygame.image.load("hamster.png")
+hamster = pygame.transform.scale(hamster, (HAMSTER_WIDTH, HAMSTER_HEIGHT))
+
+# Create the screen and the clock
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("Hamster Flappy Bird")
+clock = pygame.time.Clock()
+
+# Create a list to store the pipes
+pipes = []
+
+# Create a function to generate a new pair of pipes
+def new_pipes():
+# Choose a random height for the top pipe
+top_height = random.randint(100, SCREEN_HEIGHT - PIPE_GAP - 100)
+# Calculate the bottom pipe height
+bottom_height = SCREEN_HEIGHT - top_height - PIPE_GAP
+# Create two rectangles for the pipes and add them to the list
+top_pipe = pygame.Rect(SCREEN_WIDTH, 0, PIPE_WIDTH, top_height)
+bottom_pipe = pygame.Rect(SCREEN_WIDTH, SCREEN_HEIGHT - bottom_height, PIPE_WIDTH, bottom_height)
+pipes.append(top_pipe)
+pipes.append(bottom_pipe)
+
+# Create a function to update the pipes
+def update_pipes():
+# Loop through the pipes list
+for pipe in pipes:
+# Move the pipe to the left by 5 pixels
+pipe.x -= 5
+# If the pipe is off the screen, remove it from the list
+if pipe.x < -PIPE_WIDTH:
+pipes.remove(pipe)
+# If there are less than four pipes in the list, generate a new pair of pipes
+if len(pipes) < 4:
+new_pipes()
+
+# Create a function to draw the pipes
+def draw_pipes():
+# Loop through the pipes list
+for pipe in pipes:
+# Draw a green rectangle for each pipe
+pygame.draw.rect(screen, GREEN, pipe)
+
+# Create a variable to store the hamster's position and velocity
+hamster_x = HAMSTER_WIDTH
+hamster_y = SCREEN_HEIGHT // 2
+hamster_vy = 0
+
+# Create a variable to store the game state (True for running, False for game over)
+game_state = True
+
+# Create a variable to store the score
+score = 0
+
+# Create a font object to render text
+font = pygame.font.SysFont("Arial", 32)
+
+# Start the game loop
+while True:
+# Handle events
+for event in pygame.event.get():
+# If the user clicks the close button, quit the game
+if event.type == pygame.QUIT:
+pygame.quit()
+exit()
+# If the user presses the space bar and the game is running, make the hamster flap its wings
+if event.type == pygame.KEYDOWN and event.key ==...
+
+
+
